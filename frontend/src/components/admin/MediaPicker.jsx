@@ -3,15 +3,18 @@ import Modal from '../common/Modal'
 import MediaUploader from './MediaUploader'
 import { getMedia } from '../../api/media'
 
-export default function MediaPicker({ isOpen, onClose, onSelect }) {
+export default function MediaPicker({ isOpen, onClose, onSelect, multiple = false }) {
   const [activeTab, setActiveTab] = useState('library')
   const [media, setMedia] = useState([])
   const [loading, setLoading] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [selectedMultiple, setSelectedMultiple] = useState([])
 
   useEffect(() => {
     if (isOpen) {
       loadMedia()
+      setSelected(null)
+      setSelectedMultiple([])
     }
   }, [isOpen])
 
@@ -29,25 +32,56 @@ export default function MediaPicker({ isOpen, onClose, onSelect }) {
 
   const handleUpload = (newMedia) => {
     setMedia([newMedia, ...media])
-    setSelected(newMedia)
+    if (multiple) {
+      setSelectedMultiple(prev => [...prev, newMedia])
+    } else {
+      setSelected(newMedia)
+    }
     setActiveTab('library')
   }
 
+  const handleToggleMultiple = (item) => {
+    setSelectedMultiple(prev => {
+      const exists = prev.find(m => m.id === item.id)
+      if (exists) return prev.filter(m => m.id !== item.id)
+      return [...prev, item]
+    })
+  }
+
   const handleSelect = () => {
-    if (selected) {
-      onSelect(`/uploads/${selected.filename}`)
-      onClose()
-      setSelected(null)
+    if (multiple) {
+      if (selectedMultiple.length > 0) {
+        onSelect(selectedMultiple.map(m => `/uploads/${m.filename}`))
+        onClose()
+        setSelectedMultiple([])
+      }
+    } else {
+      if (selected) {
+        onSelect(`/uploads/${selected.filename}`)
+        onClose()
+        setSelected(null)
+      }
     }
   }
 
   const handleClose = () => {
     onClose()
     setSelected(null)
+    setSelectedMultiple([])
   }
 
+  const isItemSelected = (item) => {
+    if (multiple) return selectedMultiple.some(m => m.id === item.id)
+    return selected?.id === item.id
+  }
+
+  const canInsert = multiple ? selectedMultiple.length > 0 : !!selected
+  const buttonLabel = multiple && selectedMultiple.length > 0
+    ? `Insert ${selectedMultiple.length} Image${selectedMultiple.length > 1 ? 's' : ''}`
+    : 'Insert Image'
+
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} title="Select Image" size="lg">
+    <Modal isOpen={isOpen} onClose={handleClose} title={multiple ? 'Select Images' : 'Select Image'} size="lg">
       {/* Tabs */}
       <div className="flex border-b border-gray-200 mb-4">
         <button
@@ -96,9 +130,9 @@ export default function MediaPicker({ isOpen, onClose, onSelect }) {
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => setSelected(item)}
-                  className={`aspect-square overflow-hidden rounded border-2 ${
-                    selected?.id === item.id
+                  onClick={() => multiple ? handleToggleMultiple(item) : setSelected(item)}
+                  className={`relative aspect-square overflow-hidden rounded border-2 ${
+                    isItemSelected(item)
                       ? 'border-blue-500'
                       : 'border-transparent hover:border-gray-300'
                   }`}
@@ -108,6 +142,13 @@ export default function MediaPicker({ isOpen, onClose, onSelect }) {
                     alt={item.original_filename}
                     className="w-full h-full object-cover"
                   />
+                  {multiple && isItemSelected(item) && (
+                    <div className="absolute top-1 right-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">
+                        {selectedMultiple.findIndex(m => m.id === item.id) + 1}
+                      </span>
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
@@ -118,14 +159,14 @@ export default function MediaPicker({ isOpen, onClose, onSelect }) {
             <button
               type="button"
               onClick={handleSelect}
-              disabled={!selected}
+              disabled={!canInsert}
               className={`px-4 py-2 rounded font-medium ${
-                selected
+                canInsert
                   ? 'bg-blue-600 text-white hover:bg-blue-700'
                   : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              Insert Image
+              {buttonLabel}
             </button>
           </div>
         </div>

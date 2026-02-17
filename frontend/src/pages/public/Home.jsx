@@ -2,10 +2,11 @@ import { useState } from 'react'
 import PostList from '../../components/posts/PostList'
 import LanguageToggle from '../../components/common/LanguageToggle'
 import { usePosts } from '../../hooks/usePosts'
+import { useLanguage } from '../../hooks/useLanguage'
 
 export default function Home() {
   const { posts, loading, error } = usePosts()
-  const [language, setLanguage] = useState('en')
+  const { language, setLanguage } = useLanguage()
   const [heroOpen, setHeroOpen] = useState(true)
 
   return (
@@ -18,7 +19,7 @@ export default function Home() {
 
         <div className="relative">
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-semibold uppercase tracking-widest text-accent-500">
+            <p className="text-sm font-semibold uppercase tracking-widest text-accent-500 max-w-[10rem] sm:max-w-none leading-tight">
               {language === 'ja' ? 'ようこそ !' : 'Welcome to Chika\'s Blog'}
             </p>
             <div className="flex items-center gap-3">

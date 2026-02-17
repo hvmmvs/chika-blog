@@ -93,7 +93,7 @@ export default function PostsManager() {
             {isNewPost ? 'New Post' : 'Edit Post'}
           </h1>
         </div>
-        <div className="bg-white rounded-2xl shadow-sm p-6">
+        <div className="bg-white rounded-2xl shadow-sm p-6 overflow-visible">
           {isEditPost && !editingPost ? (
             <div className="text-center py-8">
               <div className="inline-block w-6 h-6 border-2 border-accent-300 border-t-accent-600 rounded-full animate-spin" />

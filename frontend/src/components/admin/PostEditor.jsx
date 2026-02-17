@@ -4,6 +4,7 @@ import Input from '../common/Input'
 import LanguageToggle from '../common/LanguageToggle'
 import RichTextEditor from './RichTextEditor'
 import MediaPicker from './MediaPicker'
+import { insertImageCarousel } from './extensions/ImageCarouselExtension'
 
 export default function PostEditor({ post, onSave, onCancel }) {
   const [formData, setFormData] = useState({
@@ -27,11 +28,10 @@ export default function PostEditor({ post, onSave, onCancel }) {
     onSave(formData)
   }
 
-  const handleImageSelect = (imageUrl) => {
+  const handleImagesSelect = (imageUrls) => {
     const ref = langTab === 'ja' ? editorJaRef : editorRef
-    if (ref.current) {
-      ref.current.chain().focus().setImage({ src: imageUrl }).run()
-    }
+    if (!ref.current) return
+    insertImageCarousel(ref.current, imageUrls)
   }
 
   return (
@@ -63,7 +63,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
             <RichTextEditor
               content={formData.content}
               onChange={(html) => setFormData({ ...formData, content: html })}
-              onImageClick={() => setMediaPickerOpen(true)}
+              onImagesClick={() => setMediaPickerOpen(true)}
               editorRef={editorRef}
             />
           </div>
@@ -95,7 +95,7 @@ export default function PostEditor({ post, onSave, onCancel }) {
             <RichTextEditor
               content={formData.content_ja}
               onChange={(html) => setFormData({ ...formData, content_ja: html })}
-              onImageClick={() => setMediaPickerOpen(true)}
+              onImagesClick={() => setMediaPickerOpen(true)}
               editorRef={editorJaRef}
             />
           </div>
@@ -136,7 +136,8 @@ export default function PostEditor({ post, onSave, onCancel }) {
       <MediaPicker
         isOpen={mediaPickerOpen}
         onClose={() => setMediaPickerOpen(false)}
-        onSelect={handleImageSelect}
+        onSelect={handleImagesSelect}
+        multiple
       />
     </form>
   )

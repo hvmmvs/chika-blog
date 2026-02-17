@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
+import { LanguageProvider } from './context/LanguageContext'
 import Layout from './components/layout/Layout'
 import AdminLayout from './components/layout/AdminLayout'
 import Home from './pages/public/Home'
@@ -14,6 +15,7 @@ import MediaLibrary from './pages/admin/MediaLibrary'
 function App() {
   return (
     <AuthProvider>
+      <LanguageProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -33,6 +35,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </LanguageProvider>
     </AuthProvider>
   )
 }

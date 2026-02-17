@@ -6,11 +6,13 @@ ALLOWED_TAGS = [
     'ul', 'ol', 'li',
     'blockquote', 'pre', 'code',
     'a', 'img', 'hr',
+    'div',
 ]
 
 ALLOWED_ATTRIBUTES = {
     'a': ['href', 'title', 'target', 'rel'],
     'img': ['src', 'alt', 'title', 'width', 'height'],
+    'div': ['data-image-carousel'],
 }
 
 

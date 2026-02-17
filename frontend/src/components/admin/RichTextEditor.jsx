@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import Underline from '@tiptap/extension-underline'
 import Placeholder from '@tiptap/extension-placeholder'
+import { ImageCarouselExtension } from './extensions/ImageCarouselExtension'
 
 function ToolbarButton({ onClick, isActive, disabled, children, title }) {
   return (
@@ -28,16 +28,11 @@ function ToolbarDivider() {
   return <div className="w-px h-6 bg-gray-300 mx-1" />
 }
 
-export default function RichTextEditor({ content, onChange, onImageClick, editorRef, placeholder = 'Write your content...' }) {
+export default function RichTextEditor({ content, onChange, onImagesClick, editorRef, placeholder = 'Write your content...' }) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
         heading: { levels: [1, 2, 3] },
-      }),
-      Image.configure({
-        HTMLAttributes: {
-          class: 'max-w-full h-auto rounded',
-        },
       }),
       Link.configure({
         openOnClick: false,
@@ -46,6 +41,7 @@ export default function RichTextEditor({ content, onChange, onImageClick, editor
         },
       }),
       Underline,
+      ImageCarouselExtension,
       Placeholder.configure({
         placeholder,
       }),
@@ -80,9 +76,9 @@ export default function RichTextEditor({ content, onChange, onImageClick, editor
   }
 
   return (
-    <div className="border border-gray-300 rounded-lg overflow-hidden">
-      {/* Toolbar */}
-      <div className="flex flex-wrap gap-1 p-2 bg-gray-50 border-b border-gray-300">
+    <div>
+      {/* Toolbar - sticky below the site header */}
+      <div className="flex flex-wrap gap-1 p-2 bg-gray-50 border border-gray-300 rounded-t-lg sticky top-[57px] z-30 shadow-sm">
         {/* Text formatting */}
         <ToolbarButton
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -199,26 +195,23 @@ export default function RichTextEditor({ content, onChange, onImageClick, editor
           </ToolbarButton>
         )}
 
-        {/* Image */}
+        {/* Images */}
         <ToolbarButton
-          onClick={onImageClick}
-          title="Insert Image"
+          onClick={onImagesClick}
+          title="Insert Images"
         >
-          Image
+          Images
         </ToolbarButton>
       </div>
 
       {/* Editor */}
-      <EditorContent
-        editor={editor}
-        className="prose max-w-none p-4 min-h-[400px] focus:outline-none"
-      />
+      <div className="border border-t-0 border-gray-300 rounded-b-lg">
+        <EditorContent
+          editor={editor}
+          className="prose max-w-none p-4 min-h-[400px] focus:outline-none"
+        />
+      </div>
     </div>
   )
 }
 
-export function insertImage(editor, src, alt = '') {
-  if (editor) {
-    editor.chain().focus().setImage({ src, alt }).run()
-  }
-}
