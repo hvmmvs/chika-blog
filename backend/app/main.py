@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
-from app.routers import auth_router, posts_router, categories_router, media_router
+from app.routers import auth_router, posts_router, categories_router, media_router, seo_router
 
 settings = get_settings()
 
@@ -27,6 +27,7 @@ app.include_router(auth_router)
 app.include_router(posts_router)
 app.include_router(categories_router)
 app.include_router(media_router)
+app.include_router(seo_router)
 
 
 @app.get("/")

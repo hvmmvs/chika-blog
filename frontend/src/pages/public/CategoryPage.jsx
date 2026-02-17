@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import PostList from '../../components/posts/PostList'
+import SEO from '../../components/common/SEO'
 import { getPostsByCategory } from '../../api/categories'
 
 export default function CategoryPage() {
@@ -18,6 +19,11 @@ export default function CategoryPage() {
 
   return (
     <div>
+      <SEO
+        title={`${slug.charAt(0).toUpperCase() + slug.slice(1)}`}
+        description={`Browse posts in the ${slug} category on Chika Blog.`}
+        url={`/category/${slug}`}
+      />
       <div className="mb-12">
         <p className="text-sm font-semibold uppercase tracking-widest text-accent-500 mb-3">
           Category

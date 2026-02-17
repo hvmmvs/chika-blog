@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import PostDetail from '../../components/posts/PostDetail'
+import SEO from '../../components/common/SEO'
 import { usePost } from '../../hooks/usePosts'
 
 export default function PostPage() {
@@ -14,5 +15,16 @@ export default function PostPage() {
     return <div className="text-center py-8 text-red-600">Error loading post</div>
   }
 
-  return <PostDetail post={post} />
+  return (
+    <>
+      <SEO
+        title={post?.title || 'Post'}
+        description={post?.excerpt || ''}
+        image={post?.featured_image?.url}
+        url={`/post/${slug}`}
+        type="article"
+      />
+      <PostDetail post={post} />
+    </>
+  )
 }

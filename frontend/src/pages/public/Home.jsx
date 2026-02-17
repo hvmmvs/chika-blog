@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import PostList from '../../components/posts/PostList'
 import LanguageToggle from '../../components/common/LanguageToggle'
+import SEO from '../../components/common/SEO'
 import { usePosts } from '../../hooks/usePosts'
 import { useLanguage } from '../../hooks/useLanguage'
 
@@ -11,6 +12,10 @@ export default function Home() {
 
   return (
     <div>
+      <SEO
+        title="Chika Blog"
+        url="/"
+      />
       {/* Hero section */}
       <section className="relative py-8 md:py-12 overflow-hidden">
         {/* Decorative gradient blobs */}

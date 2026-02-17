@@ -1,5 +1,6 @@
 import LanguageToggle from '../../components/common/LanguageToggle'
 import ImageCarousel from '../../components/common/ImageCarousel'
+import SEO from '../../components/common/SEO'
 import { useLanguage } from '../../hooks/useLanguage'
 
 const bioImages = [
@@ -14,6 +15,11 @@ export default function Bio() {
 
   return (
     <div className="max-w-2xl mx-auto">
+      <SEO
+        title="About Chika"
+        description="Chika Martino is a certified sake sommelier and specialist based in California, focused on sake education and community-focused consulting."
+        url="/bio"
+      />
       <header className="mb-10">
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm font-semibold uppercase tracking-widest text-accent-500">
