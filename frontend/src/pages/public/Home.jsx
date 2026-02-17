@@ -57,7 +57,7 @@ export default function Home() {
                 <p>
                   This blog is a space where I share my experiences, insights, and reflections as a sake specialist based in California. Through my work in education and consulting, I collaborate with restaurants, retailers, and professionals across the state—from small local communities to Michelin-starred restaurants.
                 </p>
-                <p>My mission is centered on two goals:</p>
+                {/* <p>My mission is centered on two goals:</p>
                 <p>
                   <strong className="text-ink">Empowering Sake Professionals</strong><br />
                   Through practical, real-world education, I help professionals build the knowledge and confidence to share sake and Japanese culture with purpose.
@@ -69,14 +69,14 @@ export default function Home() {
                 <p>
                   This blog is where I share what I learn along the way—<br />
                   from the field, from the people I meet, and from sake itself.
-                </p>
+                </p> */}
               </div>
             ) : (
               <div className="mt-4 text-base text-muted leading-relaxed max-w-2xl space-y-3">
                 <p>
                   このブログは、カリフォルニアを拠点に活動する日本酒スペシャリストとしての経験、学び、そして考えを共有する場所です。小さな地域の飲食店からサンフランシスコのミシュラン星付きレストランまで、教育やコンサルティングを通じて、さまざまな現場で日本酒に携わっています。
                 </p>
-                <p>私のミッションは、大きく2つあります。</p>
+                {/* <p>私のミッションは、大きく2つあります。</p>
                 <p>
                   <strong className="text-ink">日本酒プロフェッショナルを育てること</strong><br />
                   実践的な教育を通じて、日本酒と日本文化を自信をもって伝えられる人材を育てること。
@@ -88,7 +88,7 @@ export default function Home() {
                 <p>
                   このブログでは、現場での経験や日々の気づきを通じて、<br />
                   日本酒の魅力とその可能性を共有していきます。
-                </p>
+                </p> */}
               </div>
             )}
           </div>

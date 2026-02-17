@@ -20,6 +20,35 @@ export default function Bio() {
         description="Chika Martino is a certified sake sommelier and specialist based in California, focused on sake education and community-focused consulting."
         url="/bio"
       />
+      {/* Creator card */}
+      <div className="mb-10 flex flex-col items-center text-center">
+        <img
+          src="/bio/profile.jpeg"
+          alt="Chika Martino"
+          className="w-36 h-36 rounded-full object-cover shadow-md mb-4"
+        />
+        <h1 className="font-display text-display-xl text-ink">
+          {language === 'ja' ? 'マルティーノ 知佳' : 'Chika Martino'}
+        </h1>
+        <p className="mt-2 text-sm font-semibold uppercase tracking-widest text-accent-500">
+          {language === 'ja' ? '酒スペシャリスト・酒ソムリエ' : 'Sake Specialist | Sake Sommelier'}
+        </p>
+        <a
+          href="https://www.instagram.com/chika_loves_food?igsh=MzRlODBiNWFlZA=="
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-3 text-muted hover:text-accent-500 transition-colors"
+          aria-label="Instagram"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+          </svg>
+        </a>
+        <div className="mt-6 w-12 h-1 rounded-full bg-gradient-to-r from-accent-400 to-pop" />
+      </div>
+
       <header className="mb-10">
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm font-semibold uppercase tracking-widest text-accent-500">
@@ -27,10 +56,6 @@ export default function Bio() {
           </p>
           <LanguageToggle language={language} onChange={setLanguage} alwaysShow />
         </div>
-        <h1 className="font-display text-display-xl text-ink">
-          {language === 'ja' ? 'マルティーノ 知佳' : 'Chika Martino'}
-        </h1>
-        <div className="mt-6 w-12 h-1 rounded-full bg-gradient-to-r from-accent-400 to-pop" />
       </header>
 
       {language === 'en' ? (
