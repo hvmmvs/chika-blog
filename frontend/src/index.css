@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+/* Page transition animation */
+@keyframes gradient {
+  to { background-position: 200% center; }
+}
+
+/* TipTap Editor Styles */
+.ProseMirror {
+  outline: none;
+  min-height: 400px;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}
+
+.ProseMirror img.ProseMirror-selectednode {
+  outline: 2px solid #F43F5E;
+  outline-offset: 2px;
+}

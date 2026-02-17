@@ -1,0 +1,32 @@
+server {
+    listen 80 default_server;
+    server_name ${DOMAIN} www.${DOMAIN};
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    client_max_body_size 20M;
+
+    # Let's Encrypt verification
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location /api {
+        proxy_pass http://backend:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /uploads {
+        proxy_pass http://backend:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+
+    location / {
+        try_files $uri /index.html;
+    }
+}

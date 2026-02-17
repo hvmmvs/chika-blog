@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Backend specific
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Frontend specific
+frontend/node_modules/
+frontend/dist/
+
+# Docker
+docker-compose.override.yml
+
+# Claude
+.claude/
